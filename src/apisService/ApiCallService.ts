@@ -1,19 +1,25 @@
+import { SearchReqDto } from './../models/SearchReqDto';
 import { Apis } from './../constants/SpotifyApis';
 import Axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import clientAccessToken from './../shared/ClientAccessToken'
 
 export class ApiCallService {
 
-    constructor(){ }
+    private axiosConfig?: AxiosRequestConfig;
 
-    public clientAuthentication = (credentials: string): Promise<AxiosResponse> => {
-        const config:AxiosRequestConfig  = {
-            headers: { 
-                'Authorization' : `Basic ${credentials}`, 
-                'Content-Type': 'application/x-www-form-urlencoded' 
+    constructor(){ }
+    
+    public searchItems = (searchReqDto:SearchReqDto): Promise<any> => {
+        const searchUri = Apis.searchApi + searchReqDto.searchStr;
+        return Axios.get(searchUri, this.getHeader());
+    }
+
+    private getHeader = (): AxiosRequestConfig => {
+        return this.axiosConfig = {
+            headers: {
+                'Authorization' : `Bearer ${clientAccessToken.access_token}`, 
+                'Content-Type': 'application/json' 
             }
         }
-        const data = 'grant_type=client_credentials';
-        return Axios.post(Apis.clientAuthApi, data, config);
     }
-    
 }
