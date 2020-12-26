@@ -5,7 +5,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 export class SearchController {
     public router: Router = Router();
     public baseUrl: string = '/search';
-    private searchService: SearchService
+    private searchService: SearchService;
     constructor() {
         this.initRoutes();
         this.searchService = new SearchService();
@@ -20,9 +20,9 @@ export class SearchController {
             searchStr: req.body.searchQuery,
             type: req.body.type,
             market: req.body.market,
-            limit: undefined,
-            offset: undefined,
-            include_external: undefined
+            limit: req.body.limit,
+            offset: req.body.offset,
+            include_external: req.body.include_external
         }
         this.searchService.searchItem(req.body.data, searchReqDto)
         .then((data) => {
@@ -30,6 +30,6 @@ export class SearchController {
         })
         .catch((error) => {
             res.status(500).json(error.data);
-        })
+        });
     }
 }

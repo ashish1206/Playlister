@@ -9,11 +9,6 @@ export class ApiCallService {
 
     constructor(){ }
     
-    public searchItems = (searchReqDto:SearchReqDto): Promise<any> => {
-        const searchUri = Apis.searchApi + searchReqDto.searchStr;
-        return Axios.get(searchUri, this.getHeader());
-    }
-
     private getHeader = (): AxiosRequestConfig => {
         return this.axiosConfig = {
             headers: {
@@ -21,5 +16,20 @@ export class ApiCallService {
                 'Content-Type': 'application/json' 
             }
         }
+    }
+
+    public searchItems = (searchReqDto: SearchReqDto): Promise<AxiosResponse> => {
+        const searchUri = Apis.searchApi + searchReqDto.searchStr;
+        return Axios.get(searchUri, this.getHeader());
+    }
+
+    public getTrackDetails = (trackId: string): Promise<AxiosResponse> => {
+        const trackDetailUri = Apis.trackApi + trackId;
+        return Axios.get(trackDetailUri, this.getHeader());
+    }
+
+    public getAudioFeatures = (trackIds: string): Promise<AxiosResponse> => {
+        const audioFeatureUri = Apis.audioFeatures + trackIds;
+        return Axios.get(audioFeatureUri, this.getHeader());
     }
 }

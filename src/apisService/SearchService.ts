@@ -9,13 +9,30 @@ export class SearchService {
     }
 
     public searchItem = async (data: any, searchReqDto: SearchReqDto): Promise<any> => {
-        for(let prop in data){
-            searchReqDto.searchStr += prop + "=" + data[prop] + " ";
-        }
-        searchReqDto.searchStr.trim();
-        searchReqDto.searchStr += '&type=' + searchReqDto.type
+        searchReqDto.searchStr += this.getSearchQuery(data);
+        searchReqDto.searchStr += this.getQueryParams(searchReqDto);
         searchReqDto.searchStr = encodeURI(searchReqDto.searchStr);
+        console.log('search query', searchReqDto.searchStr);
         let res = await this.apiCallService.searchItems(searchReqDto);
         return res.data;
+    }
+
+    private getSearchQuery = (data: any): string => {
+        let searchQuery: string = '';
+        for(let prop in data){
+            searchQuery += prop + ":" + data[prop] + " ";
+        }
+        searchQuery.trim();
+        return searchQuery;
+    }
+
+    private getQueryParams = (searchReqDto: any): string => {
+        let queryParams = '';
+        for(const prop in searchReqDto){
+            if(prop != 'searchStr' && searchReqDto[prop] !== undefined){
+                queryParams += '&' + prop + '=' + searchReqDto[prop];
+            }
+        }
+        return queryParams;
     }
 }

@@ -15,7 +15,6 @@ export class ClientAuthService {
 
     public clientAccessToken = (req: Request, res: Response, next: NextFunction): void => {
         if(this.checkTokenValid()){
-            console.log("access_token", clientAccessToken.access_token);
             next();
         }
         else{
@@ -31,7 +30,6 @@ export class ClientAuthService {
             .then((response: AxiosResponse) => {
                 this.setAccessToken(response.data.access_token);
                 this.setTokenExpiry(response.data.expires_in);
-                console.log("access_token", clientAccessToken.access_token);
                 next();
             })
             .catch((error: AxiosError) => {
