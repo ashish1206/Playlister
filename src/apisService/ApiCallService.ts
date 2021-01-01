@@ -13,7 +13,8 @@ export class ApiCallService {
         return this.axiosConfig = {
             headers: {
                 'Authorization' : `Bearer ${clientAccessToken.access_token}`, 
-                'Content-Type': 'application/json' 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             }
         }
     }
@@ -36,5 +37,11 @@ export class ApiCallService {
     public getAudioAnalysis = (trackId: string): Promise<AxiosResponse> => {
         const audioAnalysisUri = Apis.audioAnalysis + trackId;
         return Axios.get(audioAnalysisUri, this.getHeader());
+    }
+
+    public getArtistDetails = (id: string, urlType: string): Promise<AxiosResponse> => {
+        const artistUri = Apis.artistApi + id + urlType;
+        console.log("artist url", artistUri);
+        return Axios.get(artistUri, this.getHeader());
     }
 }
