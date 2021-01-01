@@ -32,4 +32,9 @@ export class ApiCallService {
         const audioFeatureUri = Apis.audioFeatures + trackIds;
         return Axios.get(audioFeatureUri, this.getHeader());
     }
+
+    public getAudioAnalysis = (trackId: string): Promise<AxiosResponse> => {
+        const audioAnalysisUri = Apis.audioAnalysis + trackId;
+        return Axios.get(audioAnalysisUri, this.getHeader());
+    }
 }

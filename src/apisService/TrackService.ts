@@ -18,4 +18,9 @@ export class TrackService {
         let res: any = await this.apiCallService.getAudioFeatures(trackIds);
         return res.data;
     }
+
+    public getAudioAnalysis = async (trackId: string): Promise<any> => {
+        let res: any = await this.apiCallService.getAudioAnalysis(trackId);
+        return res.data;
+    }
 }
