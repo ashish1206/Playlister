@@ -1,4 +1,5 @@
 import { ApiCallService } from './../apisService/ApiCallService'
+import ServiceInst from '../shared/ServicesInst';
 
 export class TrackService {
     private apiCallService: ApiCallService;

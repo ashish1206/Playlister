@@ -19,6 +19,10 @@ export class ApiCallService {
         }
     }
 
+    public get = (url: string): Promise<AxiosResponse> => {
+        return Axios.get(url, this.getHeader());
+    }
+
     public searchItems = (searchReqDto: SearchReqDto): Promise<AxiosResponse> => {
         const searchUri = Apis.searchApi + searchReqDto.searchStr;
         return Axios.get(searchUri, this.getHeader());
@@ -41,7 +45,6 @@ export class ApiCallService {
 
     public getArtistDetails = (id: string, urlType: string): Promise<AxiosResponse> => {
         const artistUri = Apis.artistApi + id + urlType;
-        console.log("artist url", artistUri);
         return Axios.get(artistUri, this.getHeader());
     }
 }

@@ -1,5 +1,6 @@
 import { SearchReqDto } from './../models/SearchReqDto';
 import { ApiCallService } from './ApiCallService';
+import ServiceInst from '../shared/ServicesInst';
 
 export class SearchService {
     private apiCallService: ApiCallService;

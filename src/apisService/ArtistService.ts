@@ -1,4 +1,5 @@
 import { ApiCallService } from './ApiCallService';
+import ServiceInst from '../shared/ServicesInst';
 
 export class ArtistService {
     private apiCallService: ApiCallService;
@@ -17,7 +18,6 @@ export class ArtistService {
 
     public getTopTracks = async (id: string): Promise<any> => {
         let res: any = await this.apiCallService.getArtistDetails(id, this.artistTop);
-        console.log(res.data);
         return res.data;
     }
 

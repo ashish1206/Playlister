@@ -1,3 +1,4 @@
+import { BrowseController } from './controller/BrowseController';
 import express from 'express';
 import { env } from './config';
 import * as bodyParser from 'body-parser'
@@ -14,12 +15,14 @@ const clientAuthService = new ClientAuthService();
 const searchController = new SearchController();
 const trackController = new TrackController();
 const artistController = new ArtistController();
+const browseContorller = new BrowseController();
 
 app.use(clientAuthService.clientAccessToken);
 
 app.use(searchController.baseUrl, searchController.router);
 app.use(trackController.baseUrl, trackController.router);
 app.use(artistController.baseUrl, artistController.router);
+app.use(browseContorller.baseUrl, browseContorller.router);
 
 app.listen(env.PORT, () => {
     console.log('Server started at', env.PORT);
