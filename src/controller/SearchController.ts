@@ -1,7 +1,6 @@
 import { SearchReqDto } from './../models/SearchReqDto';
 import { SearchService } from './../apisService/SearchService';
 import { Router, Request, Response, NextFunction } from 'express';
-import ServiceInst from '../shared/ServicesInst';
 
 export class SearchController {
     public router: Router = Router();
@@ -9,7 +8,7 @@ export class SearchController {
     private searchService: SearchService;
     constructor() {
         this.initRoutes();
-        this.searchService = ServiceInst.searchService;
+        this.searchService = new SearchService();
     }
 
     private initRoutes(): void {

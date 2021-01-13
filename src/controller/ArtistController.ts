@@ -1,13 +1,12 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { ArtistService } from '../apisService/ArtistService';
-import ServiceInst from '../shared/ServicesInst';
 
 export class ArtistController {
     public router: Router = Router();
     private artistService: ArtistService;
     public baseUrl: string = '/artist';
     constructor() {
-        this.artistService = ServiceInst.artistService;
+        this.artistService = new ArtistService();
         this.initRoutes();
     }
 

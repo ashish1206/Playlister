@@ -9,8 +9,8 @@ export class ClientAuthService {
     private CLIENT_SECRET: string;
 
     constructor(){ 
-        this.CLIENT_ID = env.CLIENT_ID;
-        this.CLIENT_SECRET = env.CLIENT_SECRET;
+        this.CLIENT_ID = env.SPOTIFY_CLIENT_ID;
+        this.CLIENT_SECRET = env.SPOTIFY_CLIENT_SECRET;
     }
 
     public clientAccessToken = (req: Request, res: Response, next: NextFunction): void => {

@@ -23,6 +23,9 @@ export class ApiCallService {
         return Axios.get(url, this.getHeader());
     }
 
+    public getWithoutHeader = (url: string): Promise<AxiosResponse> => {
+        return Axios.get(url);
+    }
     public searchItems = (searchReqDto: SearchReqDto): Promise<AxiosResponse> => {
         const searchUri = Apis.searchApi + searchReqDto.searchStr;
         return Axios.get(searchUri, this.getHeader());

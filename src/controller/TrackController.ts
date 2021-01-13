@@ -1,6 +1,5 @@
 import { TrackService } from './../apisService/TrackService';
 import { Router, Request, Response, NextFunction } from 'express';
-import ServiceInst from '../shared/ServicesInst';
 
 export class TrackController {
     public router: Router = Router();
@@ -8,7 +7,7 @@ export class TrackController {
     private trackService: TrackService;
     constructor() {
         this.initRoutes();
-        this.trackService = ServiceInst.trackService;
+        this.trackService = new TrackService();
     }
 
     private initRoutes(): void {

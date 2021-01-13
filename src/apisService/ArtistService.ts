@@ -1,5 +1,4 @@
 import { ApiCallService } from './ApiCallService';
-import ServiceInst from '../shared/ServicesInst';
 
 export class ArtistService {
     private apiCallService: ApiCallService;

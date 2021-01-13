@@ -1,5 +1,6 @@
 export const Apis = {
-    baseUrl: 'https://api.spotify.com',
+    baseUrlSpotify: 'https://api.spotify.com/v1',
+    baseUrlYoutube:'https://www.googleapis.com/youtube/v3',
     clientAuthApi: 'https://accounts.spotify.com/api/token',
     searchApi: 'https://api.spotify.com/v1/search?q=',
     trackApi: 'https://api.spotify.com/v1/tracks/',
@@ -9,5 +10,6 @@ export const Apis = {
     categoriesApi: 'https://api.spotify.com/v1/browse/categories',
     featuredPlaylist: 'https://api.spotify.com/v1/browse/featured-playlists',
     newRelease: 'https://api.spotify.com/v1/browse/new-releases',
-    featuredPlaylists: 'https://api.spotify.com/v1/browse/featured-playlists'
+    featuredPlaylists: 'https://api.spotify.com/v1/browse/featured-playlists',
+    youtubePlaylist: 'https://youtube.googleapis.com/youtube/v3/playlistItems'
 }
