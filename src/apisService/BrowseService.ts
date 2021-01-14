@@ -1,4 +1,4 @@
-import { Apis } from './../constants/SpotifyApis';
+import { Apis } from '../constants/ApisConstants';
 import { ApiCallService } from './ApiCallService';
 import BuildUrl from 'build-url';
 

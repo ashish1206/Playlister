@@ -12,7 +12,6 @@ export class SearchService {
         searchReqDto.searchStr += this.getSearchQuery(data);
         searchReqDto.searchStr += this.getQueryParams(searchReqDto);
         searchReqDto.searchStr = encodeURI(searchReqDto.searchStr);
-        console.log('search query', searchReqDto.searchStr);
         let res = await this.apiCallService.searchItems(searchReqDto);
         return res.data;
     }

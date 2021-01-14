@@ -1,5 +1,5 @@
 import { SearchReqDto } from './../models/SearchReqDto';
-import { Apis } from './../constants/SpotifyApis';
+import { Apis } from '../constants/ApisConstants';
 import Axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import clientAccessToken from './../shared/ClientAccessToken'
 

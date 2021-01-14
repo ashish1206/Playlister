@@ -1,7 +1,7 @@
 import { env } from '../config';
 import { Request, Response, NextFunction} from 'express';
 import Axios, { AxiosResponse, AxiosError, AxiosRequestConfig } from 'axios';
-import { Apis } from '../constants/SpotifyApis';
+import { Apis } from '../constants/ApisConstants';
 import  clientAccessToken  from '../shared/ClientAccessToken';
 
 export class ClientAuthService {

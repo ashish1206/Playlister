@@ -6,7 +6,7 @@ import { ClientAuthService } from './middleware/ClientAuthService';
 import { SearchController } from './controller/SearchController';
 import { TrackController } from './controller/TrackController';
 import { ArtistController } from './controller/ArtistController';
-import { YoutubeController } from './controller/YoutubeController';
+import { ConverterController } from './controller/ConverterController';
 
 const app = express();
 
@@ -17,7 +17,7 @@ const searchController = new SearchController();
 const trackController = new TrackController();
 const artistController = new ArtistController();
 const browseContorller = new BrowseController();
-const youtubeController = new YoutubeController();
+const youtubeController = new ConverterController();
 
 app.use(clientAuthService.clientAccessToken);
 

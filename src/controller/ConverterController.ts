@@ -1,13 +1,13 @@
-import { YoutubeService } from './../apisService/YoutubeService';
+import { ConverterService } from '../apisService/ConverterService';
 import { Router, Request, Response, NextFunction } from 'express';
 
-export class YoutubeController {
+export class ConverterController {
     public router: Router = Router();
     public baseUrl: string = '/youtube';
-    private youtubeService: YoutubeService;
+    private converterService: ConverterService;
     constructor() {
         this.initRoutes();
-        this.youtubeService = new YoutubeService();;
+        this.converterService = new ConverterService();;
     }
 
     private initRoutes(): void {
@@ -16,11 +16,12 @@ export class YoutubeController {
 
     private getPlaylistItems = (req: Request, res: Response, next: NextFunction): void => {
         let playlistId:any = req.query.playlistId;
-        this.youtubeService.getPlaylistItems(playlistId)
+        this.converterService.convertPlaylist(playlistId)
         .then((data: any) => {
             res.status(200).json(data);
         })
         .catch((err) => {
+            console.log(err);
             res.status(500).json(err);
         })
     }
