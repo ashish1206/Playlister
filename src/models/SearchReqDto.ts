@@ -1,5 +1,5 @@
 export interface SearchReqDto {
-    searchStr: string;
+    q: string;
     type: string;
     market?: any[];
     limit?: number;

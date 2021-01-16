@@ -1,6 +1,5 @@
 import { env } from '../config';
-import { Request, Response, NextFunction} from 'express';
-import Axios, { AxiosResponse, AxiosError, AxiosRequestConfig } from 'axios';
+import Axios, { AxiosRequestConfig } from 'axios';
 import { Apis } from '../constants/ApisConstants';
 import  clientAccessToken  from '../shared/ClientAccessToken';
 
@@ -13,9 +12,9 @@ export class ClientAuthService {
         this.CLIENT_SECRET = env.SPOTIFY_CLIENT_SECRET;
     }
 
-    public clientAccessToken = (req: Request, res: Response, next: NextFunction): void => {
+    public getAccessToken = async (): Promise<string> => {
         if(this.checkTokenValid()){
-            next();
+            return clientAccessToken.access_token;
         }
         else{
             const credentials = this.getBase64Cred();
@@ -26,15 +25,10 @@ export class ClientAuthService {
                 }
             }
             const data = 'grant_type=client_credentials';
-            Axios.post(Apis.clientAuthApi, data, config)
-            .then((response: AxiosResponse) => {
-                this.setAccessToken(response.data.access_token);
-                this.setTokenExpiry(response.data.expires_in);
-                next();
-            })
-            .catch((error: AxiosError) => {
-                next(error)
-            })
+            let response: any = await Axios.post(Apis.clientAuthApi, data, config);
+            this.setAccessToken(response.data.access_token);
+            this.setTokenExpiry(response.data.expires_in);
+            return clientAccessToken.access_token;
         }
     }
 

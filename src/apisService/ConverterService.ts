@@ -60,11 +60,11 @@ export class ConverterService {
         return Promise.all(youtubeTracks.map( async (item: YoutubeTrack): Promise<any> => {
             const data: any = {};
             const searchReqDto: SearchReqDto = {
-                searchStr: item.title,
+                q: item.title,
                 type: 'track'
             };
-            if(searchReqDto.searchStr.includes("(")){
-                searchReqDto.searchStr = searchReqDto.searchStr.substr(0, item.title.indexOf('('));
+            if(searchReqDto.q.includes("(")){
+                searchReqDto.q = searchReqDto.q.substr(0, item.title.indexOf('('));
             }
             let response: any = await this.searchService.searchItem(data, searchReqDto);
             let spotifyTrack: any = this.createSpotifyTracks(response.tracks);

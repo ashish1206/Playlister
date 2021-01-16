@@ -1,3 +1,5 @@
+import BuildUrl from 'build-url';
+import { Apis } from './../constants/ApisConstants';
 import { SearchReqDto } from '../models/SearchReqDto';
 import { ApiCallService } from './ApiCallService';
 
@@ -9,10 +11,14 @@ export class SearchService {
     }
 
     public searchItem = async (data: any, searchReqDto: SearchReqDto): Promise<any> => {
-        searchReqDto.searchStr += this.getSearchQuery(data);
-        searchReqDto.searchStr += this.getQueryParams(searchReqDto);
-        searchReqDto.searchStr = encodeURI(searchReqDto.searchStr);
-        let res = await this.apiCallService.searchItems(searchReqDto);
+        searchReqDto.q += this.getSearchQuery(data);
+        const url = BuildUrl(Apis.searchApi, {
+            queryParams: {
+                q: searchReqDto.q,
+                type: searchReqDto.type,
+            }
+        });
+        let res = await this.apiCallService.get(url);
         return res.data;
     }
 

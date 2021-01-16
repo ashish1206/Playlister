@@ -17,7 +17,7 @@ export class SearchController {
 
     private getItem = (req: Request, res: Response, next: NextFunction): void => {
         let searchReqDto: SearchReqDto = {
-            searchStr: req.body.searchQuery,
+            q: req.body.searchQuery,
             type: req.body.type,
             market: req.body.market,
             limit: req.body.limit,
