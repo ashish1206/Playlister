@@ -1,4 +1,4 @@
-import { SearchReqDto } from './../models/SearchReqDto';
+import { SearchReqDto } from '../models/SearchReqDto';
 import { ApiCallService } from './ApiCallService';
 
 export class SearchService {

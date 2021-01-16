@@ -1,4 +1,4 @@
-import { TrackService } from './../apisService/TrackService';
+import { TrackService } from '../apisService/TrackService';
 import { Router, Request, Response, NextFunction } from 'express';
 
 export class TrackController {

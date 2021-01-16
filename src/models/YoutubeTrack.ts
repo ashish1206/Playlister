@@ -1,4 +1,4 @@
-export interface YoutubeItem {
+export interface YoutubeTrack {
     title: string,
     description: string,
     videoId: string

@@ -1,4 +1,4 @@
-import { ApiCallService } from './../apisService/ApiCallService'
+import { ApiCallService } from './ApiCallService'
 
 export class TrackService {
     private apiCallService: ApiCallService;

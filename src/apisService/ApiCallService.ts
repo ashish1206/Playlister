@@ -1,18 +1,26 @@
-import { SearchReqDto } from './../models/SearchReqDto';
+import { SearchReqDto } from '../models/SearchReqDto';
 import { Apis } from '../constants/ApisConstants';
 import Axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import clientAccessToken from './../shared/ClientAccessToken'
+import clientAccessToken from '../shared/ClientAccessToken'
 
 export class ApiCallService {
-
-    private axiosConfig?: AxiosRequestConfig;
 
     constructor(){ }
     
     private getHeader = (): AxiosRequestConfig => {
-        return this.axiosConfig = {
+        return {
             headers: {
                 'Authorization' : `Bearer ${clientAccessToken.access_token}`, 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }
+    }
+
+    private getUserResHeader = (access_token: string): AxiosRequestConfig => {
+        return {
+            headers: {
+                'Authorization' : `Bearer ${access_token}`, 
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }
@@ -26,6 +34,15 @@ export class ApiCallService {
     public getWithoutHeader = (url: string): Promise<AxiosResponse> => {
         return Axios.get(url);
     }
+
+    public getWithUserHeader = (url: string, access_token: string): Promise<AxiosResponse> => {
+        return Axios.get(url, this.getUserResHeader(access_token));
+    }
+
+    public postWithUserHeader = (url: string, access_token: string, data: any): Promise<AxiosResponse> => {
+        return Axios.post(url, data, this.getUserResHeader(access_token));
+    }
+
     public searchItems = (searchReqDto: SearchReqDto): Promise<AxiosResponse> => {
         const searchUri = Apis.searchApi + searchReqDto.searchStr;
         return Axios.get(searchUri, this.getHeader());

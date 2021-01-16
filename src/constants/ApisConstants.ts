@@ -11,5 +11,8 @@ export const Apis = {
     featuredPlaylist: 'https://api.spotify.com/v1/browse/featured-playlists',
     newRelease: 'https://api.spotify.com/v1/browse/new-releases',
     featuredPlaylists: 'https://api.spotify.com/v1/browse/featured-playlists',
-    youtubePlaylist: 'https://youtube.googleapis.com/youtube/v3/playlistItems'
+    youtubePlaylist: 'https://youtube.googleapis.com/youtube/v3/playlistItems',
+    spotifyPlaylists: 'https://api.spotify.com/v1/user_id/playlists',
+    spotifyUserProfile: 'https://api.spotify.com/v1/user_id',
+    addTracksToPlaylist: 'https://api.spotify.com/v1/playlists/playlist_id/tracks' 
 }

@@ -1,5 +1,5 @@
 import { SearchReqDto } from './../models/SearchReqDto';
-import { SearchService } from './../apisService/SearchService';
+import { SearchService } from '../apisService/SearchService';
 import { Router, Request, Response, NextFunction } from 'express';
 
 export class SearchController {

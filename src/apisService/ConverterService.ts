@@ -1,11 +1,11 @@
-import { SpotifyItem } from '../models/SpotifyItem';
+import { SpotifyTrack } from '../models/SpotifyTrack';
 import { SearchReqDto } from '../models/SearchReqDto';
 import { SearchService } from './SearchService';
 import { env } from '../config';
 import { Apis } from '../constants/ApisConstants';
 import BuildUrl from 'build-url';
 import { ApiCallService } from './ApiCallService';
-import { YoutubeItem } from '../models/YoutubeItem';
+import { YoutubeTrack } from '../models/YoutubeTrack';
 
 export class ConverterService {
     private apiCallService: ApiCallService;
@@ -19,13 +19,13 @@ export class ConverterService {
     }
 
     public convertPlaylist = async (youtubePlaylistid: string): Promise<any> => {
-        let youtubeItems: YoutubeItem[] = await this.getYoutubeItem(youtubePlaylistid);
-        let spotifyItems: SpotifyItem[] = await this.getSpotifyItems(youtubeItems);
-        return spotifyItems;
+        let youtubeTracks: YoutubeTrack[] = await this.getYoutubeTrack(youtubePlaylistid);
+        let spotifyTracks: SpotifyTrack[] = await this.getSpotifyTracks(youtubeTracks);
+        return spotifyTracks;
     }
 
-    public getYoutubeItem = async (playlistId: string): Promise<YoutubeItem[]> => {
-        let youtubeItems: YoutubeItem[] = [];
+    public getYoutubeTrack = async (playlistId: string): Promise<YoutubeTrack[]> => {
+        let youtubeTracks: YoutubeTrack[] = [];
         let nextPageToken: string|undefined = undefined;
         do{
             let params: any = {
@@ -45,19 +45,19 @@ export class ConverterService {
             let pageDetail = response.data;
             nextPageToken = pageDetail.nextPageToken;
             pageDetail.items.forEach((element: any) => {
-                const detail: YoutubeItem = {
+                const detail: YoutubeTrack = {
                     title: element.snippet.title,
                     description: element.snippet.description,
                     videoId: element.snippet.resourceId.videoId
                 };
-                youtubeItems.push(detail);
+                youtubeTracks.push(detail);
             });
         }while(nextPageToken);
-        return youtubeItems;
+        return youtubeTracks;
     }
 
-    public getSpotifyItems = async (youtubeItems: YoutubeItem[]): Promise<SpotifyItem[]> => {
-        return Promise.all(youtubeItems.map( async (item: YoutubeItem): Promise<any> => {
+    public getSpotifyTracks = async (youtubeTracks: YoutubeTrack[]): Promise<SpotifyTrack[]> => {
+        return Promise.all(youtubeTracks.map( async (item: YoutubeTrack): Promise<any> => {
             const data: any = {};
             const searchReqDto: SearchReqDto = {
                 searchStr: item.title,
@@ -67,13 +67,13 @@ export class ConverterService {
                 searchReqDto.searchStr = searchReqDto.searchStr.substr(0, item.title.indexOf('('));
             }
             let response: any = await this.searchService.searchItem(data, searchReqDto);
-            let spotifyItem: any = this.createSpotifyItems(response.tracks);
-            return spotifyItem;
+            let spotifyTrack: any = this.createSpotifyTracks(response.tracks);
+            return spotifyTrack;
         }));
     }
 
-    private createSpotifyItems = (tracks: any): Promise<SpotifyItem> => {
-        let spotifyItem: any;
+    private createSpotifyTracks = (tracks: any): Promise<SpotifyTrack> => {
+        let spotifyTrack: any;
         if(tracks.items.length > 0){
             let artists: any[] = tracks.items[0].artists.map((element: any) => {
                 let artist: any = {
@@ -82,12 +82,12 @@ export class ConverterService {
                 }
                 return artist;
             }); 
-            spotifyItem = {
+            spotifyTrack = {
                 id: tracks.items[0].id,
                 name: tracks.items[0].name,
                 artists: artists
             }
         }
-        return spotifyItem;
+        return spotifyTrack;
     }
 }
